@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: grey;
+            color: #333;
+            text-align: center;
+            overflow: hidden; /* biar fotonya nggak geser-geser pas membesar */
+            transition: background-color 0.5s ease-in-out;
+        }
+        #triggerText {
+            font-size: 2.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        #triggerText:hover {
+            transform: scale(1.05); /* Efek membesar saat kursor di atasnya */
+            color: #007bff;
+        }
+        #photoContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0); /* Awalnya tersembunyi dan berukuran 0 */
+            transition: transform 1.0s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0); /* Bayangan awal transparan */
+            border-radius: 15px;
+            overflow: hidden;
+            width: 90vmin; /* Biar ukurannya pas di layar mana pun */
+            max-width: 600px;
+        }
+        #photoContainer.show {
+            transform: translate(-50%, -50%) scale(1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* Bayangan muncul saat foto terlihat */
+        }
+        #p {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        #box {
+            border: 2px solid gray;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <h1 id="triggerText">Buti iha ne'e</h1>
+</div>
+    
+
+    <div id="photoContainer">
+        <img id="p" src="kunti.jpg" alt="Foto Ryana">
+    </div>
+
+    <audio id="backgroundAudio" loop>
+        <source src="jumpscare.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const triggerText = document.getElementById('triggerText');
+        const photoContainer = document.getElementById('photoContainer');
+        const backgroundAudio = document.getElementById('backgroundAudio');
+
+        let isMediaShown = false;
+
+        triggerText.addEventListener('click', () => {
+            if (!isMediaShown) {
+                photoContainer.classList.add('show');
+                backgroundAudio.play().catch(error => {
+                    console.log('Gagal putar audio:', error);
+                });
+                isMediaShown = true;
+            }
+        });
+    </script>
+
+</body>
+</html>
